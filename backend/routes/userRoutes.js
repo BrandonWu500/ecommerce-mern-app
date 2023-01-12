@@ -8,8 +8,8 @@ const {
   getUserStats,
 } = require('../controllers/userController');
 const {
-  verifyTokenAndAuth,
   verifyTokenAndAdmin,
+  verifyTokenAndAuth,
 } = require('../middleware/authMiddleware');
 
 const router = require('express').Router();
@@ -22,6 +22,6 @@ router
   .route('/:id')
   .put(verifyTokenAndAuth, updateUser)
   .delete(verifyTokenAndAuth, deleteUser)
-  .get(verifyTokenAndAdmin, getUser);
+  .get(verifyTokenAndAuth, getUser);
 
 module.exports = router;

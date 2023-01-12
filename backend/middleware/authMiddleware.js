@@ -30,22 +30,19 @@ const verifyToken = asyncHandler(async (req, res, next) => {
 });
 
 const verifyTokenAndAuth = asyncHandler(async (req, res, next) => {
-  await verifyToken(req, res, () => {
+  verifyToken(req, res, () => {
     if (!req.user) {
-      res.status(400);
-      throw new Error('No user associated with token');
-    }
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+      res.status(400).json('No user associated with token');
+    } else if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      res.status(403);
-      throw new Error("You don't have permission to do that");
+      res.status(403).json("You don't have permission to do that");
     }
   });
 });
 
 const verifyTokenAndAdmin = asyncHandler(async (req, res, next) => {
-  await verifyToken(req, res, () => {
+  verifyToken(req, res, () => {
     if (!req.user) {
       res.status(400);
       throw new Error('No user associated with token');

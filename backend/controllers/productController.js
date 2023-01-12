@@ -85,10 +85,28 @@ const getAllProducts = asyncHandler(async (req, res) => {
   }
 });
 
+const search3Products = asyncHandler(async (req, res) => {
+  // text search on query using logical AND
+  const products = await Product.find({
+    $text: { $search: `\"${req.body.query}\"` },
+  }).limit(3);
+  res.status(200).json(products);
+});
+const searchProducts = asyncHandler(async (req, res) => {
+  // text search on query using logical AND
+  const products = await Product.find({
+    $text: { $search: `\"${req.body.query}\"` },
+  });
+
+  res.status(200).json(products);
+});
+
 module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
   getProduct,
   getAllProducts,
+  searchProducts,
+  search3Products,
 };

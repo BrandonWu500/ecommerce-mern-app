@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
+import { register, reset } from '../redux/auth/authSlice';
 
 const Container = styled.div`
   display: flex;
@@ -42,9 +46,53 @@ const Btn = styled.button`
 `;
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+
+  const { username, email, password, password2 } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+      dispatch(reset());
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+    }
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit');
+
+    if (password !== password2) {
+      toast.error('Passwords do not match');
+    } else {
+      const userData = {
+        username,
+        email,
+        password,
+      };
+      dispatch(register(userData));
+    }
   };
   return (
     <>
@@ -53,16 +101,39 @@ const Register = () => {
         <Form onSubmit={handleSubmit}>
           <Title>CREATE AN ACCOUNT</Title>
           <Row>
-            <Input placeholder="First Name" required />
-            <Input placeholder="Last Name" required />
+            <Input
+              placeholder="Username"
+              required
+              name="username"
+              value={username}
+              onChange={handleChange}
+            />
+            <Input
+              type="email"
+              placeholder="Email"
+              required
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
           </Row>
           <Row>
-            <Input placeholder="Username" required />
-            <Input type="email" placeholder="Email" required />
-          </Row>
-          <Row>
-            <Input type="password" placeholder="Password" required />
-            <Input type="password" placeholder="Confirm Password" required />
+            <Input
+              type="password"
+              placeholder="Password"
+              required
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            <Input
+              type="password"
+              placeholder="Confirm Password"
+              required
+              name="password2"
+              value={password2}
+              onChange={handleChange}
+            />
           </Row>
           <Span>
             By creating an account, I consent to the proccessing of my personal
@@ -71,7 +142,11 @@ const Register = () => {
           <Link to="/login">
             <strong>Already have an account? Sign in</strong>
           </Link>
-          <Btn type="submit">SIGN UP</Btn>
+          {isLoading ? (
+            <Btn disabled={true}>Loading...</Btn>
+          ) : (
+            <Btn type="submit">SIGN UP</Btn>
+          )}
         </Form>
       </Container>
     </>

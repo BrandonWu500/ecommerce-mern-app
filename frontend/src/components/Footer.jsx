@@ -5,12 +5,15 @@ import EmailIcon from '@mui/icons-material/Email';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { Link } from 'react-router-dom';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4em;
   padding: 2em 4em;
+  ${mobile({ display: 'flex', flexDirection: 'column', marginTop: '2em' })}
 `;
 const Left = styled.div`
   display: flex;
@@ -25,6 +28,7 @@ const Desc = styled.p`
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 1em;
+  ${mobile({ fontSize: 'inherit' })}
 `;
 const MediaLinkList = styled.ul`
   display: flex;
@@ -90,22 +94,30 @@ const Footer = () => {
         <Title>Useful Links</Title>
         <UsefulLinkList>
           <UsefulLinkItem>
-            <UsefulLink>Home</UsefulLink>
+            <Link to="/">
+              <UsefulLink>Home</UsefulLink>
+            </Link>
           </UsefulLinkItem>
           <UsefulLinkItem>
             <UsefulLink>Accessories</UsefulLink>
           </UsefulLinkItem>
           <UsefulLinkItem>
-            <UsefulLink>Men's Fashion</UsefulLink>
+            <Link to="/products/men">
+              <UsefulLink>Men's Fashion</UsefulLink>
+            </Link>
           </UsefulLinkItem>
           <UsefulLinkItem>
-            <UsefulLink>Women's Fashion</UsefulLink>
+            <Link to="/products/women">
+              <UsefulLink>Women's Fashion</UsefulLink>
+            </Link>
           </UsefulLinkItem>
           <UsefulLinkItem>
             <UsefulLink>Wishlist</UsefulLink>
           </UsefulLinkItem>
           <UsefulLinkItem>
-            <UsefulLink>Cart</UsefulLink>
+            <Link to="/cart">
+              <UsefulLink>Cart</UsefulLink>
+            </Link>
           </UsefulLinkItem>
           <UsefulLinkItem>
             <UsefulLink>My Account</UsefulLink>

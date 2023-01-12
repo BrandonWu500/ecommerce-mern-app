@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { categories } from '../data';
 import { Link } from 'react-router-dom';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   padding: 1em 4em;
@@ -9,6 +10,10 @@ const Container = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  ${mobile({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
 `;
 
 const Category = styled.div`
@@ -17,10 +22,13 @@ const Category = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2em;
+  background-color: var(--bg-clr-primary);
   background-image: url(${(props) => props.bg});
   background-size: cover;
   background-position: 25% 50%;
   height: 70vh;
+  width: 100%;
+  ${mobile({ height: '30vh' })}
 `;
 
 const Title = styled.h2`
@@ -42,7 +50,7 @@ const Categories = () => {
       {categories.map((item) => (
         <Category key={item.id} bg={item.img}>
           <Title>{item.title}</Title>
-          <Link to="/products">
+          <Link to={`/products/${item.cat}`}>
             <Btn>SHOP NOW</Btn>
           </Link>
         </Category>

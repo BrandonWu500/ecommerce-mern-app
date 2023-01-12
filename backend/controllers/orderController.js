@@ -13,7 +13,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
 //UPDATE
 const updateOrder = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  const order = await Order.findById(req.params.orderId);
   if (!order) {
     res.status(400);
     throw new Error('Order not found');
@@ -33,7 +33,7 @@ const updateOrder = asyncHandler(async (req, res) => {
 
 //DELETE
 const deleteOrder = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  const order = await Order.findById(req.params.orderId);
   if (!order) {
     res.status(400);
     throw new Error('Order not found');
@@ -48,10 +48,21 @@ const deleteOrder = asyncHandler(async (req, res) => {
   }
 });
 
+//DELETE ALL ORDERS
+const deleteAllOrders = asyncHandler(async (req, res) => {
+  try {
+    await Order.deleteMany({});
+    res.status(200).json('All orders deleted');
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
 //GET ORDER
 const getUserOrders = asyncHandler(async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.find({ userId: req.params.id });
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json(error);
@@ -100,6 +111,7 @@ module.exports = {
   createOrder,
   updateOrder,
   deleteOrder,
+  deleteAllOrders,
   getUserOrders,
   getAllOrders,
   getIncome,

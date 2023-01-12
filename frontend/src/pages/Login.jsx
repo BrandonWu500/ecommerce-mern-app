@@ -1,6 +1,11 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
+import { login, reset } from '../redux/auth/authSlice';
 
 const Container = styled.div`
   display: flex;
@@ -24,11 +29,6 @@ const Form = styled.form`
   background-color: white;
   padding: 2em;
 `;
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-`;
 const Input = styled.input`
   width: 100%;
   padding: 1em;
@@ -39,12 +39,35 @@ const Btn = styled.button`
   color: white;
   border: 0;
   padding: 1em;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, isError, message, isSuccess, user } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit');
+    dispatch(login({ username, password }));
   };
   return (
     <>
@@ -53,11 +76,24 @@ const Login = () => {
         <Form onSubmit={handleSubmit}>
           <Title>SIGN IN</Title>
 
-          <Input placeholder="Username" required />
+          <Input
+            placeholder="Username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-          <Input type="password" placeholder="Password" required />
+          <Input
+            type="password"
+            placeholder="Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-          <Btn type="submit">SIGN IN</Btn>
+          {isLoading ? (
+            <Btn disabled={true}>Loading...</Btn>
+          ) : (
+            <Btn type="submit">SIGN IN</Btn>
+          )}
           <Span>Forgot password?</Span>
           <Link to="/register">
             <Span>

@@ -30,16 +30,19 @@ export const categories = [
     id: 1,
     img: 'images/people/9.jpg',
     title: 'PANTS',
+    cat: 'pants',
   },
   {
     id: 2,
     img: 'images/people/5.jpg',
     title: 'SHIRTS',
+    cat: 'shirts',
   },
   {
     id: 3,
-    img: 'images/people/8.jpg',
-    title: 'JACKETS',
+    img: 'images/people/10.jpg',
+    title: 'SHOES',
+    cat: 'shoes',
   },
 ];
 

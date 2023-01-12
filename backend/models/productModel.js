@@ -5,7 +5,6 @@ const productSchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     desc: {
       type: String,
@@ -18,12 +17,26 @@ const productSchema = mongoose.Schema(
     categories: {
       type: Array,
     },
-    size: {
-      type: String,
-    },
-    color: {
-      type: String,
-    },
+    size: [
+      {
+        info: {
+          type: String,
+        },
+        itemId: {
+          type: String,
+        },
+      },
+    ],
+    color: [
+      {
+        info: {
+          type: String,
+        },
+        itemId: {
+          type: String,
+        },
+      },
+    ],
     price: {
       type: Number,
       required: true,
@@ -31,5 +44,9 @@ const productSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.index({
+  title: 'text',
+});
 
 module.exports = mongoose.model('Product', productSchema);

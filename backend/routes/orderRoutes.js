@@ -5,6 +5,7 @@ const {
   getUserOrders,
   getAllOrders,
   getIncome,
+  deleteAllOrders,
 } = require('../controllers/orderController');
 const {
   verifyTokenAndAuth,
@@ -15,13 +16,17 @@ const router = require('express').Router();
 
 router
   .route('/')
-  .post(verifyTokenAndAuth, createOrder)
-  .get(verifyTokenAndAdmin, getAllOrders);
+  .get(verifyTokenAndAdmin, getAllOrders)
+  .delete(verifyTokenAndAdmin, deleteAllOrders);
 router.route('/income').get(verifyTokenAndAdmin, getIncome);
+router.route('/guest').post(createOrder);
 router
   .route('/:id')
+  .get(verifyTokenAndAuth, getUserOrders)
+  .post(verifyTokenAndAuth, createOrder);
+router
+  .route('/:id/:orderId')
   .put(verifyTokenAndAuth, updateOrder)
   .delete(verifyTokenAndAuth, deleteOrder);
-router.route('/:userId').get(verifyTokenAndAuth, getUserOrders);
 
 module.exports = router;
