@@ -16,7 +16,7 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-const API_URL = 'http://localhost:5000/api/products';
+const API_URL = '/api/products';
 
 const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
