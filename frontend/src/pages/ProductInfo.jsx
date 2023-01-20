@@ -165,11 +165,17 @@ const ProductInfo = ({ item }) => {
               <Label>Size</Label>
               <Select
                 onChange={(e) => {
-                  setSize(e.target.value);
+                  const newSize = e.target.value;
+                  setSize(newSize);
+                  const newItem = product.size.find(
+                    (item) => item.info === newSize
+                  );
+                  navigate(`/product/${newItem.itemId}`);
                 }}
+                value={size}
               >
                 {product.size?.map((s) => (
-                  <Option key={s.info} value={s.info}>
+                  <Option key={s.info} value={s.info} name={s.itemId}>
                     {s.info}
                   </Option>
                 ))}
