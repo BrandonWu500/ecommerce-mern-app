@@ -18,6 +18,9 @@ const Row = styled.div`
   border: 1px solid gray;
   border-top: 0;
   padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 `;
 const RowTitle = styled.h3`
   margin-bottom: 1em;

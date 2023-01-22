@@ -12,6 +12,7 @@ const Col = styled.div`
 const Item = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: center;
   ${mobile({ gridTemplateColumns: 'repeat(2,1fr)', gap: '3em' })}
 `;
 const ItemImg = styled.img`
