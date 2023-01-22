@@ -174,17 +174,16 @@ const Navbar = () => {
     setSearchResults(res.data);
   };
   const handleSearchClick = () => {
-    if (searchResults.length > 0) {
-      navigate('/search', {
-        state: {
-          search,
-        },
-      });
-    }
+    setSearchResults([]);
+    navigate('/search', {
+      state: {
+        search,
+      },
+    });
   };
 
   const handleSearchEnter = (e) => {
-    if (e.key === 'Enter' && searchResults.length > 0) {
+    if (e.key === 'Enter') {
       setSearchResults([]);
       navigate('/search', {
         state: {
