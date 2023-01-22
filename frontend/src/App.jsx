@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/search" element={<Search />} />
         </Routes>
       </Router>
-      <ToastContainer />
+      <ToastContainer position="top-left" />
     </>
   );
 };

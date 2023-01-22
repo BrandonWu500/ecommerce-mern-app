@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import Products from '../components/Products';
 import Slider from '../components/Slider';
-import { addToCart } from '../redux/cart/cartSlice';
+import { addCart } from '../redux/cart/cartSlice';
 
 const Home = () => {
   const { user } = useSelector((state) => state.auth);
@@ -17,7 +17,7 @@ const Home = () => {
     if (user) {
       const cart = JSON.parse(localStorage.getItem('cart'));
       if (cart) {
-        cart.products.map((product) => dispatch(addToCart(product)));
+        dispatch(addCart(cart));
         localStorage.removeItem('cart');
       }
     }

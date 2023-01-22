@@ -26,6 +26,23 @@ export const addToCart = async (productData, token, userId) => {
   }
 };
 
+export const addCart = async (cartData, token, userId) => {
+  if (token) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const res = await axios.post(
+      API_URL + 'addCart/' + userId,
+      cartData,
+      config
+    );
+    return res.data;
+  }
+};
+
 export const removeFromCart = async (itemId, token, userId) => {
   const config = {
     headers: {
@@ -67,6 +84,7 @@ export const deleteCart = async (token, userId) => {
 
 const cartService = {
   addToCart,
+  addCart,
   removeFromCart,
   deleteCart,
   getCart,

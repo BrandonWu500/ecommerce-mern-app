@@ -15,6 +15,7 @@ const addToCart = asyncHandler(async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user.id });
     const product = req.body;
+    console.log(cart);
     if (cart) {
       // check if item already in cart
       const itemIdx = cart.products.findIndex(
@@ -46,6 +47,31 @@ const addToCart = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+  }
+});
+
+// creates a new cart with multiple products
+const addCart = asyncHandler(async (req, res) => {
+  let cart = await Cart.findOne({ user: req.user.id });
+  if (cart) {
+    res.status(400);
+    throw new Error('User already has cart');
+  }
+  const products = req.body.products;
+  const quantity = req.body.quantity;
+  const totalPrice = req.body.totalPrice;
+
+  try {
+    const newCart = await Cart.create({
+      user: req.user.id,
+      products,
+      quantity,
+      totalPrice,
+    });
+    return res.status(201).json(newCart);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 
@@ -120,6 +146,7 @@ const deleteCart = asyncHandler(async (req, res) => {
 module.exports = {
   getCart,
   addToCart,
+  addCart,
   removeFromCart,
   updateCart,
   deleteCart,
