@@ -22,6 +22,7 @@ const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filterUsed, setFilterUsed] = useState(false);
+  const [fetchProducts, setFetchProducts] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -30,6 +31,7 @@ const Products = ({ cat, filters, sort }) => {
           cat ? API_URL + `?category=${cat}` : API_URL
         );
         setProducts(res.data);
+        setFetchProducts(true);
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +77,7 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {filteredProducts.length === 0 && filterUsed && (
-        <Title>NO PRODUCTS FOUND</Title>
+        <Title>{fetchProducts ? 'NO PRODUCTS FOUND' : 'Loading...'}</Title>
       )}
       {cat
         ? filteredProducts.map((item) => <Product key={item._id} item={item} />)

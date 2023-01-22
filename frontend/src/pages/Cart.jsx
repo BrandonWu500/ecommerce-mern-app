@@ -303,7 +303,9 @@ const Cart = () => {
         ) : (
           <>
             <Empty>
-              <Title>Your cart is empty.</Title>
+              <Title>
+                {cart.isLoading ? 'Loading...' : 'Your cart is empty.'}
+              </Title>
               <Link to="/">
                 <BtnAccent>START SHOPPING</BtnAccent>
               </Link>

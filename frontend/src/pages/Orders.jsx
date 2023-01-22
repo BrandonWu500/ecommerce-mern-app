@@ -35,10 +35,16 @@ const BtnAccent = styled.button`
   background-color: black;
   color: white;
 `;
+const Span = styled.span`
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+`;
 
 const Orders = () => {
   const { user } = useSelector((state) => state.auth);
   const [orders, setOrders] = useState([]);
+  const [fetchOrders, setFetchOrders] = useState(false);
   useEffect(() => {
     const getOrders = async () => {
       try {
@@ -48,6 +54,7 @@ const Orders = () => {
           },
         });
         setOrders(res.data);
+        setFetchOrders(true);
       } catch (error) {
         console.log(error);
       }
@@ -73,10 +80,12 @@ const Orders = () => {
         ) : (
           <>
             <Empty>
-              <Title>No orders yet.</Title>
-              <Link to="/">
-                <BtnAccent>START SHOPPING</BtnAccent>
-              </Link>
+              <Span>{fetchOrders ? 'No orders yet.' : 'Loading...'}</Span>
+              {fetchOrders && (
+                <Link to="/">
+                  <BtnAccent>START SHOPPING</BtnAccent>
+                </Link>
+              )}
             </Empty>
           </>
         )}
