@@ -13,7 +13,7 @@
 
 ## App Features
 
-- automatic image slider with manual controls
+- autoplay image slider with manual controls
 - search bar with autocomplete
 - guest cart that also gets saved upon registration
 - login/register
