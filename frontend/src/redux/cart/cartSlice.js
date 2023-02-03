@@ -252,26 +252,6 @@ export const cartSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(addCart.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(addCart.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.products = action.payload.products;
-        state.quantity = action.payload.quantity;
-        state.totalPrice = action.payload.totalPrice;
-      })
-      .addCase(addCart.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      .addCase(removeFromCart.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
       .addCase(removeFromCart.pending, (state) => {
         state.isLoading = true;
       })
@@ -282,7 +262,11 @@ export const cartSlice = createSlice({
         state.quantity = action.payload.quantity;
         state.totalPrice = action.payload.totalPrice;
       })
-
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(updateCart.pending, (state) => {
         state.isLoading = true;
       })

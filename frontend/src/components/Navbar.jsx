@@ -156,6 +156,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     if (isError) {
+      /* if jwt expires */
       if (message === 'Request failed with status code 400') {
         dispatch(logout());
         navigate('/login');
