@@ -1,5 +1,13 @@
 # ecommerce-mern-app
 
+## UPDATE 3/19/23:
+
+- added splash page for rest api
+- fixed img urls in data
+- updated cors
+- updated axios base url
+- deployed with render.com
+
 ## What I Learned / Gained Experience With
 
 - MERN Stack

@@ -1,6 +1,3 @@
-const allowedOrigins = [
-  'https://brandonwu500-mern-ecommerce-app.onrender.com',
-  'http://localhost:3000',
-];
+const allowedOrigins = ['https://brandonwu500-mern-shop-app.onrender.com'];
 
 module.exports = allowedOrigins;
