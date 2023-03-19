@@ -28,25 +28,25 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    img: 'images/people/9.jpg',
+    img: '/images/people/9.jpg',
     title: 'PANTS',
     cat: 'pants',
   },
   {
     id: 2,
-    img: 'images/people/5.jpg',
+    img: '/images/people/5.jpg',
     title: 'SHIRTS',
     cat: 'shirts',
   },
   {
     id: 3,
-    img: 'images/people/10.jpg',
+    img: '/images/people/10.jpg',
     title: 'SHOES',
     cat: 'shoes',
   },
 ];
 
-export const popularProducts = [
+/* export const popularProducts = [
   {
     id: 1,
     img: 'images/products/shirt.png',
@@ -79,4 +79,4 @@ export const popularProducts = [
     id: 8,
     img: 'images/products/shirt.png',
   },
-];
+]; */

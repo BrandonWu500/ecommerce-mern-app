@@ -9,4 +9,5 @@ export const store = configureStore({
     cart: cartReducer,
     checkout: checkoutReducer,
   },
+  devTools: false,
 });

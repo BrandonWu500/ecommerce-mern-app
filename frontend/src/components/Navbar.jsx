@@ -181,6 +181,7 @@ const Navbar = () => {
         search,
       },
     });
+    window.scrollTo(0, 0);
   };
 
   const handleSearchEnter = (e) => {
@@ -191,6 +192,7 @@ const Navbar = () => {
           search,
         },
       });
+      window.scrollTo(0, 0);
     }
   };
 
@@ -198,6 +200,7 @@ const Navbar = () => {
     setSearchResults([]);
     setSearch('');
     navigate(`/product/${id}`);
+    window.scrollTo(0, 0);
   };
   return (
     <Container>

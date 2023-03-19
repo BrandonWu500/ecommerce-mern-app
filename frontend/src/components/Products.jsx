@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Product from './Product';
+import { BASE_URL } from '../requestMethods';
 
 const Container = styled.div`
   padding: 1em 2em;
@@ -16,7 +17,7 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-const API_URL = '/api/products';
+const API_URL = BASE_URL + '/products';
 
 const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);

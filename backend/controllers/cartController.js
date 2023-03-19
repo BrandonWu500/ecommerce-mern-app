@@ -15,7 +15,6 @@ const addToCart = asyncHandler(async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user.id });
     const product = req.body;
-    console.log(cart);
     if (cart) {
       // check if item already in cart
       const itemIdx = cart.products.findIndex(

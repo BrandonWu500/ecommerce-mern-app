@@ -1,5 +1,7 @@
 import axios from 'axios';
-const API_URL = '/api/carts/';
+import { BASE_URL } from '../../requestMethods';
+
+const API_URL = BASE_URL + '/carts/';
 
 const getCart = async (token, userId) => {
   const config = {

@@ -51,7 +51,7 @@ const Product = ({ item }) => {
   return (
     <Container>
       <ImageWrapper>
-        <Image src={item.img} />
+        <Image src={item.img} loading="lazy" />
       </ImageWrapper>
       <Btns>
         <Btn>
